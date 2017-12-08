@@ -3,18 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutable-js": "^0.3.1-6",
     "node-rest-client": "^3.1.0",
     "odata": "^0.3.7",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-json-tree": "^0.11.0",
     "react-json-view": "^1.13.3",
-    "react-scripts": "1.0.17"
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "redux-devtools-extension": "^2.13.2"
   }
 }
