@@ -1,7 +1,7 @@
-export default (state, action) => {
+import initialState from './initialState';
+
+export default (state = initialState, action) => {
     switch (action.type) {
-        case '@@INIT':
-            return { responseData: {} }
         case 'SET_FETCH_RESPONSE':
             // TODO: immutable js
             return {...state, responseData: { ...state.responseData, [action.topLevelPath]: action.response }};

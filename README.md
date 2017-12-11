@@ -1,3 +1,13 @@
+
+Before jumping into here it is useful to understand some concepts of redux and react.
+
+For redux.  https://redux.js.org/.  There is alot there though so at a minimum understand:
+* actions and reducers
+* containers vs components: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+* middleware vs. enahcers
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

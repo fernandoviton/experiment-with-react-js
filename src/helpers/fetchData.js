@@ -1,8 +1,6 @@
-// TODO: move this to middleware
 import odata from 'odata';
-import config from '../config';
 
-export default (name, onGetFinished) => {
+export default (config, name, onFinished) => {
   if (!config.topLevelPaths.has(name))
     return;
 
@@ -10,11 +8,11 @@ export default (name, onGetFinished) => {
     .then( (result) => {
 			console.log(`succeeded request for ${name}`, result);
       const response = { content: result.data, statusCode: 'OK' };
-      onGetFinished(response);
+      onFinished(response);
     })
     .fail(result => {
       console.log(`failed request for ${name}`, result);
       const response = { statusCode: result.status };
-      onGetFinished(response);
+      onFinished(response);
     });
   }

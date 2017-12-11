@@ -8,3 +8,8 @@ export const loadConfig = config => ({
     type: 'LOAD_CONFIG',
     config
 }); 
+
+export const fetchData = (name) => ({
+    type: 'FETCH_DATA',
+    name
+});
