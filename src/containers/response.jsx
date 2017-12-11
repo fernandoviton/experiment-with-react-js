@@ -3,7 +3,7 @@ import JsonViewer from '../components/jsonViewer';
 import { fetchData } from '../actions';
 
 const mapStateToProps = state => ({
-    json: state.responseData
+    json: state.get('responseData').toJS() // TODO: replace toJS with custom built views
 });
 
 const mapDispatchToProps = dispatch => ({

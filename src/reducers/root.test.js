@@ -1,8 +1,14 @@
+import immutable from 'immutable';
 import root from './root';
 import * as Actions from '../actions';
+import getInitalState from '../reducers/getInitialState';
 
 
-const defaultState = { foo: 'bar' };
+const defaultState = getInitalState();
+const defaultStateJs = defaultState.toJS();
+
+const makeStateWithResponseData = (responseDataKey, responseDataValue) =>
+    defaultState.set('responseData', defaultState.responseData.set(responseDataKey, responseDataValue));
 
 describe('Root reducer', () => {
     it ('with unknown action returns input state', () => {
@@ -10,26 +16,29 @@ describe('Root reducer', () => {
     });
 
     it ('setFetchResponse with no previous response sets response data', () => {
-        expect(root(defaultState, Actions.setFetchResponse('somePath', 'a response'))).toEqual(
-            {...defaultState,
+        expect(root(defaultState, Actions.setFetchResponse('somePath', 'a response')).toJS())
+            .toEqual({
+                ...defaultStateJs,
                 responseData: {somePath: 'a response' }
             });
     });
 
     it ('setFetchResponse with different previous response adds response data', () => {
-        const initialResponseData = {somePreexistingPath: 'some preexisting data'};
-        const initialState = {...defaultState, responseData: initialResponseData};
-        expect(root(initialState, Actions.setFetchResponse('somePath', 'a response'))).toEqual(
-            {...initialState,
-                responseData: { ...initialState.responseData, somePath: 'a response' }
+        const initialState = makeStateWithResponseData('somePreexistingPath', 'some preexisting data');
+        const initialStateJs = initialState.toJS();
+        expect(root(initialState, Actions.setFetchResponse('somePath', 'a response')).toJS())
+            .toEqual({
+                ...initialStateJs,
+                responseData: { ...initialStateJs.responseData, somePath: 'a response' }
             });
     });
 
     it ('setFetchResponse with same previous response replaces response data', () => {
-        const initialResponseData = {somePreexistingPath: 'some preexisting data'};
-        const initialState = {...defaultState, responseData: initialResponseData};
-        expect(root(initialState, Actions.setFetchResponse('somePreexistingPath', 'new data'))).toEqual(
-            {...initialState,
+        const initialState = makeStateWithResponseData('somePreexistingPath', 'some preexisting data');
+        const initialStateJs = initialState.toJS();
+        expect(root(initialState, Actions.setFetchResponse('somePreexistingPath', 'new data')).toJS())
+            .toEqual({
+                ...initialStateJs,
                 responseData: { somePreexistingPath: 'new data' }
             });
     });
@@ -51,8 +60,9 @@ describe('Root reducer', () => {
 
     it ('loadConfig with valid config sets webRequestInfo, responseData, and clears error', () => {
         const config = { baseUrl: 'testUrl', topLevelPaths: new Set(['a', 'b']) };
-        expect(root({...defaultState, error: 'pretest error'}, Actions.loadConfig(config))).toEqual(
-            { ...defaultState,
+        expect(root(defaultState.set('error', 'pretest error'), Actions.loadConfig(config)).toJS())
+            .toEqual({
+                ...defaultStateJs,
                 error: undefined,
                 webRequestInfo: {
                     baseUrl: 'testUrl',
