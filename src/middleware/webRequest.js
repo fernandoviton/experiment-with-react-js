@@ -7,7 +7,7 @@ const webRequest = (oldState, newState, dispatch, action) => {
         case 'FETCH_DATA':
             // TODO: switch to use promise
             fetchData(oldState.get('webRequestInfo').toJS(), action.name, response => {
-                const responseData = response.content || `StatusCode: ${response.statusCode}, click to retry`;
+                const responseData = response.content || `StatusCode: ${response.statusCode}`;
                 dispatch(setFetchResponse(action.name, responseData));
             });
             break;

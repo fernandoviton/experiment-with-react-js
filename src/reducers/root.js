@@ -19,11 +19,9 @@ export default (state = getInitialState(), action) => {
                 return state.set('error', 'Configuration error: invalid topLevelPaths');
             return state.withMutations(s => s
                 .set('error', undefined)
-                .set('webRequestInfo', immutable.fromJS({
-                    baseUrl: action.config.baseUrl,
-                    topLevelPaths: action.config.topLevelPaths}))
+                .set('webRequestInfo', immutable.fromJS(action.config))
                 .set('responseData', immutable.fromJS(
-                    [...action.config.topLevelPaths].reduce((aggregate, dataValue) => ({...aggregate, [dataValue]:'click to load'}), {})))
+                    [...action.config.topLevelPaths].reduce((aggregate, dataValue) => ({...aggregate, [dataValue]:undefined}), {})))
                 );
         default:
             return state;

@@ -59,16 +59,13 @@ describe('Root reducer', () => {
     });
 
     it ('loadConfig with valid config sets webRequestInfo, responseData, and clears error', () => {
-        const config = { baseUrl: 'testUrl', topLevelPaths: new Set(['a', 'b']) };
+        const config = { someOtherProperty: 'somethingElse', baseUrl: 'testUrl', topLevelPaths: new Set(['a', 'b']) };
         expect(root(defaultState.set('error', 'pretest error'), Actions.loadConfig(config)).toJS())
             .toEqual({
                 ...defaultStateJs,
                 error: undefined,
-                webRequestInfo: {
-                    baseUrl: 'testUrl',
-                    topLevelPaths: new Set(['a', 'b'])
-                },
-                responseData: { a: 'click to load', b: 'click to load' }
+                webRequestInfo: config,
+                responseData: { a: undefined, b: undefined }
         });
     });
 });
