@@ -4,7 +4,8 @@
 
 export default sideEffect => store => next => action => {
     const oldState = store.getState();
-    const newState = next(action);
+    const nextAction = next(action);
+    const newState = store.getState();
     sideEffect(oldState, newState, store.dispatch, action);
-    return newState;
+    return nextAction;
 };
